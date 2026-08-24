@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Запись онлайн — LUMÉRA, студия аппаратной косметологии в Минске</title>
+  <meta name="description" content="Онлайн-запись в студию аппаратной косметологии Luméra в Минске: эпиляция, косметология, пилинги, удаление татуажа, моментальный загар.">
+  <meta name="theme-color" content="#F4EFE8">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234A3A2C'/%3E%3Ctext x='32' y='44' font-family='Georgia' font-size='36' font-style='italic' fill='%23F4EFE8' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Перейти к содержанию</a>
+
+  <!-- SVG-спрайт (тот же, что и на главной) -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-spark" viewBox="0 0 10 10">
+      <path d="M5 0l1.4 3.6L10 5 6.4 6.4 5 10 3.6 6.4 0 5l3.6-1.4z"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24">
+      <path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24">
+      <path d="M12 3C6.48 3 2 6.9 2 11.7c0 2.8 1.56 5.3 3.98 6.9l-.9 3.13c-.1.4.3.8.7.6l3.56-1.9c.84.2 1.72.27 2.66.27 5.52 0 10-3.9 10-8.7S17.52 3 12 3z"/>
+    </symbol>
+    <symbol id="i-close" viewBox="0 0 24 24">
+      <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24">
+      <path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.28-.28.67-.36 1.02-.25 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.24.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+    </symbol>
+    <symbol id="i-telegram" viewBox="0 0 24 24">
+      <path d="M21.9 3.4 2.94 10.8c-1 .4-1 1.46.03 1.78l4.86 1.5 1.9 5.12c.34.94 1.6 1 2.04.12l2.3-4.42 4.8 3.52c.84.6 1.98.15 2.2-.86l2.4-12.9c.2-1.03-.72-1.76-1.57-1.26zM9.06 14.9l-.4 3.9-1.5-4.05 10.4-7.4-8.5 7.55z"/>
+    </symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24">
+      <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="17.2" cy="6.8" r="1.2"/>
+    </symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24">
+      <path d="M12 2a7.4 7.4 0 0 0-7.4 7.4c0 5.5 6.6 11.9 6.9 12.2a.8.8 0 0 0 1 0c.3-.3 6.9-6.7 6.9-12.2A7.4 7.4 0 0 0 12 2zm0 10.2a2.8 2.8 0 1 1 0-5.6 2.8 2.8 0 0 1 0 5.6z"/>
+    </symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24">
+      <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4.2 13.6-4.7-2.8a.8.8 0 0 1-.4-.7V7a.9.9 0 1 1 1.8 0v4.6l4.2 2.5a.8.8 0 0 1-.9 1.5z"/>
+    </symbol>
+  </svg>
+
+  <!-- ══════════════ HEADER (ссылки ведут на якоря главной) ══════════════ -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="logo" aria-label="LUMÉRA — на главную">
+        <span class="logo__mark">Luméra</span>
+        <span class="logo__caption">студия аппаратной косметологии</span>
+      </a>
+
+      <nav class="nav" aria-label="Основная навигация">
+        <a href="index.html#hero"     class="nav__link">Главная</a>
+        <a href="index.html#services" class="nav__link">Услуги и цены</a>
+        <a href="index.html#offers"   class="nav__link">Акции</a>
+        <a href="index.html#about"    class="nav__link">О студии</a>
+        <a href="index.html#reviews"  class="nav__link">Отзывы</a>
+        <a href="index.html#contacts" class="nav__link">Контакты</a>
+      </nav>
+
+      <a href="booking.html" class="btn btn--outline btn--header" aria-current="page">Запись онлайн</a>
+            <a href="index.html" class="back-home" aria-label="Вернуться на главную">
+        <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Открыть меню">
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Открыть меню">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ══════════════ МОБИЛЬНОЕ МЕНЮ ══════════════ -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
+      <a href="index.html#hero"><i>01</i>Главная</a>
+      <a href="index.html#services"><i>02</i>Услуги и цены</a>
+      <a href="index.html#offers"><i>03</i>Акции</a>
+      <a href="index.html#about"><i>04</i>О студии</a>
+      <a href="index.html#reviews"><i>05</i>Отзывы</a>
+      <a href="index.html#contacts"><i>06</i>Контакты</a>
+      <a href="booking.html" class="mobile-menu__cta"><i>→</i>Запись онлайн</a>
+    </nav>
+    <div class="mobile-menu__meta">
+      <a href="tel:+375290000000">+375 (29) 000-00-00</a>
+      <span>ежедневно · 10:00–22:00</span>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ══════════════ ШАПКА СТРАНИЦЫ с шёлком ══════════════ -->
+    <section class="hero hero--page">
+      <canvas class="hero__canvas" id="silkCanvas" aria-hidden="true"></canvas>
+      <div class="hero__content">
+        <p class="hero__eyebrow reveal">Luméra · Минск</p>
+        <h1 class="hero__title reveal reveal--blur" style="--d:.12s">Запись <em>онлайн</em></h1>
+        <p class="hero__sub reveal" style="--d:.24s">Выберите направления — администратор подтвердит визит<br class="br-desk"> в течение часа в рабочее время студии.</p>
+      </div>
+    </section>
+
+    <!-- ══════════════ ФОРМА ЗАПИСИ ══════════════ -->
+    <section class="booking">
+      <div class="booking__wrap">
+
+        <!-- левая колонка: форма / экран успеха -->
+        <div class="booking__left">
+
+          <form class="booking__form reveal" id="bookingForm" novalidate>
+                        <h2 class="booking__form-title">Ваши данные</h2>
+
+            <!-- ловушка для ботов: человек не видит -->
+            <input type="text" name="company" class="form__hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <div class="form__row">
+              <div class="field">
+                <label for="bookName">Ваше имя *</label>
+                <input type="text" id="bookName" name="name" placeholder="Анна" autocomplete="name" maxlength="60">
+                <span class="field__error" aria-live="polite"></span>
+              </div>
+              <div class="field">
+                <label for="bookPhone">Телефон *</label>
+                <input type="tel" id="bookPhone" name="phone" placeholder="+375 (29) 000-00-00" autocomplete="tel">
+                <span class="field__error" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="form__row">
+              <div class="field">
+                <label for="bookDate">Желаемая дата</label>
+                <input type="date" id="bookDate" name="date">
+                <span class="field__hint">Оставьте пустым — предложим ближайшее окно</span>
+              </div>
+              <div class="field">
+                <label for="bookTime">Время</label>
+                <select id="bookTime" name="time">
+                  <option value="" selected>Любое время</option>
+                  <option>10:00</option><option>11:00</option><option>12:00</option>
+                  <option>13:00</option><option>14:00</option><option>15:00</option>
+                  <option>16:00</option><option>17:00</option><option>18:00</option>
+                  <option>19:00</option><option>20:00</option><option>21:00</option>
+                </select>
+                <span class="field__error" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <fieldset class="field field--checks" id="bookServices">
+              <legend>Направления процедур *</legend>
+              <div class="checks">
+                <label class="check">
+                  <input type="checkbox" name="service" value="Женская эпиляция">
+                  <span class="check__box" aria-hidden="true"><svg viewBox="0 0 14 12"><path d="M1.5 6.5 5 10 12.5 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="check__text">Женская эпиляция</span>
+                </label>
+                <label class="check">
+                  <input type="checkbox" name="service" value="Косметология">
+                  <span class="check__box" aria-hidden="true"><svg viewBox="0 0 14 12"><path d="M1.5 6.5 5 10 12.5 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="check__text">Косметология</span>
+                </label>
+                <label class="check">
+                  <input type="checkbox" name="service" value="Пилинг">
+                  <span class="check__box" aria-hidden="true"><svg viewBox="0 0 14 12"><path d="M1.5 6.5 5 10 12.5 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="check__text">Пилинг</span>
+                </label>
+                <label class="check">
+                  <input type="checkbox" name="service" value="Интимные зоны">
+                  <span class="check__box" aria-hidden="true"><svg viewBox="0 0 14 12"><path d="M1.5 6.5 5 10 12.5 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="check__text">Интимные зоны</span>
+                </label>
+                <label class="check">
+                  <input type="checkbox" name="service" value="Удаление татуажа">
+                  <span class="check__box" aria-hidden="true"><svg viewBox="0 0 14 12"><path d="M1.5 6.5 5 10 12.5 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="check__text">Удаление татуажа</span>
+                </label>
+                <label class="check">
+                  <input type="checkbox" name="service" value="Моментальный загар">
+                  <span class="check__box" aria-hidden="true"><svg viewBox="0 0 14 12"><path d="M1.5 6.5 5 10 12.5 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="check__text">Моментальный загар</span>
+                </label>
+              </div>
+              <span class="field__error" aria-live="polite"></span>
+            </fieldset>
+
+            <div class="field field--agree">
+              <label class="check check--agree">
+                <input type="checkbox" id="bookAgree">
+                <span class="check__box" aria-hidden="true"><svg viewBox="0 0 14 12"><path d="M1.5 6.5 5 10 12.5 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="check__text">Согласен(на) на обработку персональных данных *</span>
+              </label>
+              <span class="field__error" aria-live="polite"></span>
+            </div>
+
+            <button class="btn btn--primary btn--submit" id="bookSubmit" type="submit">
+              <span class="btn__spinner" aria-hidden="true"></span>
+              <span class="btn__label">Отправить заявку</span>
+              <svg class="btn__icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+                </button>
+
+            <!-- окно статуса заявки: выпадает под кнопкой -->
+            <div class="form__status" id="formStatus" role="alert" aria-live="assertive" hidden>
+              <span class="form__status-icon form__status-icon--ok" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4.5 12.5 9.5 17.5 19.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="form__status-icon form__status-icon--err" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5v5.5m0 3.5v.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </span>
+              <div class="form__status-body">
+                <b class="form__status-title"></b>
+                <p class="form__status-text"></p>
+              </div>
+            </div>
+
+            <p class="form__note">Поля со звёздочкой (*) обязательны. Данные никуда не передаются и используются только для связи с вами.</p>
+          </form>
+
+        </div>
+
+        <!-- правая колонка: контакты -->
+        <aside class="booking__side reveal" style="--d:.15s">
+          <div class="side-card">
+            <h4>Как нас найти</h4>
+            <div class="side-row">
+              <span class="side-row__icon"><svg aria-hidden="true"><use href="#i-pin"/></svg></span>
+              <div><b>г. Минск, ул. Зыбицкая, 12</b><span>вход со стороны набережной</span></div>
+            </div>
+            <div class="side-row">
+              <span class="side-row__icon"><svg aria-hidden="true"><use href="#i-phone"/></svg></span>
+              <div><b><a href="tel:+375290000000">+375 (29) 000-00-00</a></b><span>звонок или Telegram</span></div>
+            </div>
+            <div class="side-row">
+              <span class="side-row__icon"><svg aria-hidden="true"><use href="#i-clock"/></svg></span>
+              <div><b>ежедневно · 10:00–22:00</b><span>без перерывов и выходных</span></div>
+            </div>
+          </div>
+
+          <div class="side-card side-card--art">
+            <svg class="side-card__spark" aria-hidden="true"><use href="#i-spark"/></svg>
+            <p class="side-card__quote">«Запись занимает меньше минуты — а кожа скажет спасибо»</p>
+            <span class="side-card__sign">Luméra · Минск</span>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <footer class="footer" id="contacts">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="logo logo--footer" aria-label="LUMÉRA — на главную">
+          <span class="logo__mark">Luméra</span>
+          <span class="logo__caption">студия аппаратной косметологии</span>
+        </a>
+        <p class="footer__desc">Пространство в самом сердце Минска, где технологии работают на вашу естественность. Без шума, спешки и компромиссов.</p>
+        <div class="footer__socials">
+          <a href="https://t.me/" aria-label="Telegram" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-telegram"/></svg></a>
+          <a href="https://instagram.com/" aria-label="Instagram" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a>
+          <a href="tel:+375290000000" aria-label="Позвонить"><svg aria-hidden="true"><use href="#i-phone"/></svg></a>
+        </div>
+      </div>
+
+      <nav class="footer__col" aria-label="Навигация по сайту">
+        <h4>Навигация</h4>
+        <a href="index.html#hero">Главная</a>
+        <a href="index.html#services">Услуги и цены</a>
+        <a href="index.html#offers">Акции</a>
+        <a href="index.html#about">О студии</a>
+        <a href="index.html#reviews">Отзывы</a>
+        <a href="booking.html">Запись онлайн</a>
+      </nav>
+
+      <div class="footer__col">
+        <h4>Услуги</h4>
+        <a href="index.html#services">Лазерная эпиляция</a>
+        <a href="index.html#services">Аппаратная косметология</a>
+        <a href="index.html#services">Пилинги</a>
+        <a href="index.html#services">Интимные зоны</a>
+        <a href="index.html#services">Удаление татуажа</a>
+        <a href="index.html#services">Моментальный загар</a>
+      </div>
+
+      <div class="footer__col">
+        <h4>Контакты</h4>
+        <a href="tel:+375290000000">+375 (29) 000-00-00</a>
+        <a href="mailto:hello@lumera.by">hello@lumera.by</a>
+        <span>г. Минск, ул. Зыбицкая, 12</span>
+        <span>ежедневно · 10:00–22:00</span>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© <span id="year">2026</span> Luméra. Все права защищены.</span>
+      <a href="#">Политика конфиденциальности</a>
+    </div>
+  </footer>
+
+  <!-- ══════════════ FAB ══════════════ -->
+  <div class="fab" id="fabWrap">
+    <div class="fab__actions" id="fabActions">
+      <a href="https://t.me/" class="fab__option" target="_blank" rel="noopener">
+        <span class="fab__option-label">Написать в Telegram</span>
+        <span class="fab__option-icon"><svg aria-hidden="true"><use href="#i-telegram"/></svg></span>
+      </a>
+      <a href="tel:+375290000000" class="fab__option">
+        <span class="fab__option-label">Прямой звонок</span>
+        <span class="fab__option-icon"><svg aria-hidden="true"><use href="#i-phone"/></svg></span>
+      </a>
+    </div>
+    <button class="fab__main" id="fabToggle" aria-expanded="false" aria-controls="fabActions" aria-label="Связаться с нами">
+      <svg class="fab__icon fab__icon--chat" aria-hidden="true"><use href="#i-chat"/></svg>
+      <svg class="fab__icon fab__icon--close" aria-hidden="true"><use href="#i-close"/></svg>
+    </button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

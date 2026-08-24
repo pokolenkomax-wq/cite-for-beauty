@@ -1608,13 +1608,6 @@ body.menu-open .back-home:hover{
    МОБИЛЬНЫЕ ФИКСЫ: header в самый верх + FAB строго по тапу
    ═══════════════════════════════════════════════════════════ */
 
-/* ---------- 1. Header прижат к самому верху ---------- */
-@media (max-width: 1024px){
-  .header{
-    top: 0;
-    top: env(safe-area-inset-top, 0px); /* для iPhone с «чёлкой» */
-    padding-top: 0;
-  }
   /* если браузер поддерживает dvh (dynamic viewport height) */
   @supports (height: 100dvh){
     .hero{ min-height: 100dvh; }

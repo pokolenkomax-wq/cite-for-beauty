@@ -208,17 +208,19 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
 
 /* ---------- 5. Header ---------- */
 .header{
-  position: fixed; inset: 0 0 auto 0;
+  position: fixed;
+  top: 0; left: 0; right: 0;
   z-index: 1000;
-  height: var(--header-h);
+  height: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+  padding-top: env(safe-area-inset-top, 0px);
   border-bottom: 1px solid transparent;
-  animation: header-in .9s var(--ease) both;
+  animation: header-in .8s var(--ease) both;
   transition:
     background-color .5s var(--ease),
     border-color .5s var(--ease),
     backdrop-filter .5s var(--ease);
 }
-@keyframes header-in{ from{ transform: translateY(-100%); } }
+@keyframes header-in{ from{ opacity: 0; } }
 
 .header.is-scrolled{
   background: rgba(244, 239, 232, .68);

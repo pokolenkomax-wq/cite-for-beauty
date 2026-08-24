@@ -186,6 +186,7 @@
   /* ─────────── 9. FAB: связь в один клик ─────────── */
   const fab = $('#fabWrap');
   const fabToggle = $('#fabToggle');
+  const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
   const setFab = (open) => {
     fab.classList.toggle('is-open', open);
@@ -196,9 +197,24 @@
     e.stopPropagation();
     setFab(!fab.classList.contains('is-open'));
   });
+
+  /* закрытие по клику вне FAB (десктоп) или по тапу вне (мобильный) */
   document.addEventListener('click', (e) => {
-    if (fab.classList.contains('is-open') && !fab.contains(e.target)) setFab(false);
+    if (fab.classList.contains('is-open') && !fab.contains(e.target)) {
+      setFab(false);
+    }
   });
+
+  /* на мобильных: закрытие при начале скролла */
+  if (isMobile) {
+    let fabScrollTimer = null;
+    window.addEventListener('scroll', () => {
+      if (!fab.classList.contains('is-open')) return;
+      clearTimeout(fabScrollTimer);
+      fabScrollTimer = setTimeout(() => setFab(false), 120);
+    }, { passive: true });
+  }
+
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setFab(false); });
 
   /* ─────────── 10. Год в подвале ─────────── */

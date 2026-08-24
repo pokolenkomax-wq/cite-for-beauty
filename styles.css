@@ -1602,3 +1602,41 @@ body.menu-open .back-home:hover{
   border-color: var(--c-cream);
   color: var(--c-deep);
 }
+/* ═══════════════════════════════════════════════════════════
+   МОБИЛЬНЫЕ ФИКСЫ: header в самый верх + FAB строго по тапу
+   ═══════════════════════════════════════════════════════════ */
+
+/* ---------- 1. Header прижат к самому верху ---------- */
+@media (max-width: 1024px){
+  .header{
+    top: 0;
+    top: env(safe-area-inset-top, 0px); /* для iPhone с «чёлкой» */
+    padding-top: 0;
+  }
+  /* если браузер поддерживает dvh (dynamic viewport height) */
+  @supports (height: 100dvh){
+    .hero{ min-height: 100dvh; }
+  }
+}
+
+/* ---------- 2. FAB на мобильных: только по тапу, без hover ---------- */
+@media (hover: none) and (pointer: coarse){
+  /* отключаем hover-триггер раскрытия */
+  .fab:hover .fab__actions{ pointer-events: none; }
+  .fab:hover .fab__option{ opacity: 0; transform: translateY(14px) scale(.92); }
+
+  /* работает только .is-open (переключается JS по клику) */
+  .fab.is-open .fab__actions{ pointer-events: auto; }
+  .fab.is-open .fab__option{ opacity: 1; transform: none; }
+}
+
+/* закрытие FAB при тапе вне его области (на мобильных) */
+@media (max-width: 1024px){
+  .fab.is-open::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: transparent;
+  }
+}

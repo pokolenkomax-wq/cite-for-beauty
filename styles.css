@@ -191,13 +191,13 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
 .btn--light{ background: var(--c-cream); color: var(--c-deep); box-shadow: 0 24px 50px -20px rgba(0,0,0,.45); }
 .btn--light:hover{ transform: translateY(-2px); }
 
-/* 5. Шапка: фиксирована у самого верха + отдельная заливка safe-area */
+/* 5. Шапка: всегда начинается от верхнего края viewport */
 .header{
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
-  height: calc(var(--header-h) + env(safe-area-inset-top, 0px));
-  padding-top: env(safe-area-inset-top, 0px);
+  height: var(--header-h);
+  padding-top: 0;
   background: var(--c-bg);
   border-bottom: 1px solid transparent;
   transition:
@@ -206,22 +206,20 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
 }
 
 /*
-   iPhone / Dynamic Island / верхняя safe-area.
-   Это отдельный слой, поэтому safe-area не увеличивает высоту header
-   и не сдвигает логотип и бургер вниз.
+   iPhone Safari: верхний браузерный интерфейс может быть
+   полупрозрачным и показывать страницу под собой.
+   Этот слой находится под шапкой, но поверх hero, поэтому
+   область над 66px шапки тоже всегда заполнена цветом фона.
 */
-body::after{
-  content: "";
+.mobile-top-fill{
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: env(safe-area-inset-top, 0px);
+  height: 100px;
+  z-index: 999;
   background: var(--c-bg);
-  z-index: 1001;
   pointer-events: none;
 }
-
-/* При открытом мобильном меню верхняя safe-area должна быть тёмной. */
-body.menu-open::after{
+body.menu-open .mobile-top-fill{
   background: var(--c-deep);
 }
 
@@ -306,7 +304,7 @@ body.menu-open .nav{ visibility: hidden; }
 .mobile-menu{
   position: fixed; inset: 0; z-index: 950;
   display: flex; flex-direction: column; justify-content: center;
-  padding: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 24px) var(--edge) 48px;
+  padding: calc(var(--header-h) + 24px) var(--edge) 48px;
   background:
     radial-gradient(120% 90% at 85% 10%, rgba(168,150,128,.35), transparent 55%),
     var(--c-deep);
@@ -1004,6 +1002,11 @@ body.menu-open .nav{ visibility: hidden; }
 .fab.is-open .fab__option:nth-child(2),
 .fab:hover .fab__option:nth-child(2){ transition-delay: .06s; }
 
+
+@media (min-width: 1025px){
+  .mobile-top-fill{ display: none; }
+}
+
 /* 15. Адаптивность */
 @media (max-width: 1180px){
   .logo__caption{ display: none; }
@@ -1031,7 +1034,7 @@ body.menu-open .nav{ visibility: hidden; }
   .reviews__grid{ grid-template-columns: 1fr; }
 }
 @media (max-width: 640px){
-  :root{ --header-h: 66px; }
+  :root{ --header-h: 100px; }
   .why__grid{
     grid-template-columns: 1fr;
     grid-template-areas:

@@ -1609,14 +1609,7 @@ body.menu-open .back-home:hover{
   .hero{ min-height: 100dvh; }
 }
 
-/* фикс "отлипания" фиксированного хедера от верха экрана в iOS Safari
-   при резиновом скролле (rubber-band bounce) — переводим хедер
-   в отдельный GPU-слой и убираем bounce-эффект */
-.header{
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  will-change: transform;
-}
+
 html, body{
   overscroll-behavior-y: none;
 }

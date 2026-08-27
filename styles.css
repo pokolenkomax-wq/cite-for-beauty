@@ -1342,3 +1342,21 @@ body.menu-open .nav{ visibility: hidden; }
   .reveal, .reveal--art{ opacity: 1; transform: none; filter: none; clip-path: none; }
   .marquee__track{ animation: none; }
 }
+/* ===== ФИНАЛЬНЫЙ ФИКС ШАПКИ ===== */
+.header{
+  top: 0 !important;
+  padding-top: env(safe-area-inset-top, 0px) !important;
+  height: calc(var(--header-h) + env(safe-area-inset-top, 0px)) !important;
+  background: var(--c-bg);
+}
+/* сплошная заливка над шапкой — на случай оттяжки Safari */
+.header::before{
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 100%;
+  height: 320px;
+  background: var(--c-bg);
+  pointer-events: none;
+}
+/* при открытом меню шапка остаётся прозрачной, как задумано */
+body.menu-open .header{ background: transparent; }

@@ -53,6 +53,10 @@ body{
   color: var(--c-ink);
   background: var(--c-bg);
   -webkit-font-smoothing: antialiased;
+}
+
+/* Защита от горизонтального скролла безопасным для Safari способом */
+main {
   overflow-x: hidden;
 }
 
@@ -207,55 +211,40 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
 .btn--light:hover{ transform: translateY(-2px); }
 
 /* ---------- 5. Header ---------- */
-/* ---------- 5. Header ---------- */
 .header {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
   height: calc(var(--header-h) + env(safe-area-inset-top, 0px));
   padding-top: env(safe-area-inset-top, 0px);
-  /* Анимацию отсюда убрали, чтобы Safari не ломал fixed позиционирование */
-}
-
-/* Выносим "стекло" в отдельный слой */
-.header::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: transparent;
   border-bottom: 1px solid transparent;
-  /* КРИТИЧЕСКИ ВАЖНО: Форсируем рендер блюра в iOS Safari */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
+  animation: header-in .8s var(--ease) both;
   transition:
     background-color .5s var(--ease),
     border-color .5s var(--ease),
     backdrop-filter .5s var(--ease);
 }
+@keyframes header-in { from { opacity: 0; } }
 
-.header.is-scrolled::before {
+.header.is-scrolled {
   background: rgba(244, 239, 232, .68);
   -webkit-backdrop-filter: blur(18px) saturate(1.25);
   backdrop-filter: blur(18px) saturate(1.25);
   border-bottom-color: var(--c-line-soft);
 }
 
-body.menu-open .header::before {
+body.menu-open .header {
   background: transparent;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   border-bottom-color: transparent;
 }
 
-/* Анимацию перенесли на внутренний контейнер */
 .header__inner {
   width: min(1360px, 100% - var(--edge) * 2);
   height: 100%;
   margin-inline: auto;
   display: flex; align-items: center; gap: 32px;
-  animation: header-in .8s var(--ease) both;
 }
 
 .logo{ display: grid; gap: 2px; margin-right: auto; }
@@ -1644,7 +1633,4 @@ body.menu-open .back-home:hover{
     z-index: -1;
     background: transparent;
   }
-}
-html, body {
-  overscroll-behavior-y: none;
 }

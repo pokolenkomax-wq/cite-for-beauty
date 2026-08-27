@@ -1,10 +1,6 @@
-/* ═══════════════════════════════════════════════════════════
-   LUMÉRA — студия аппаратной косметологии · Минск
-   Палитра: слоновая кость · пудра · тауп · графит-шоколад
-   Типографика: Cormorant Garamond + Manrope
-   ═══════════════════════════════════════════════════════════ */
+/* LUMÉRA · styles.css · финальная чистая версия */
 
-/* ---------- 1. Дизайн-токены ---------- */
+/* 1. Токены */
 :root{
   --c-bg:        #F4EFE8;
   --c-bg-soft:   #EDE5DA;
@@ -20,37 +16,37 @@
   --c-accent-2:  #4A3A2C;
   --c-line:      rgba(62, 50, 41, .14);
   --c-line-soft: rgba(62, 50, 41, .08);
-
+  --c-error:     #A4553F;
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-body:    "Manrope", "Segoe UI", sans-serif;
-
   --radius-s: 12px;
   --radius-m: 20px;
   --radius-l: 28px;
   --edge: clamp(20px, 5vw, 64px);
   --header-h: 78px;
-
   --ease: cubic-bezier(.22, 1, .36, 1);
   --t-fast: .3s;
   --t-mid: .6s;
-
   --shadow-soft: 0 24px 50px -24px rgba(62, 50, 41, .28);
   --shadow-card: 0 34px 60px -30px rgba(62, 50, 41, .35);
 }
 
-/* ---------- 2. База ---------- */
+/* 2. База */
 *, *::before, *::after{ box-sizing: border-box; margin: 0; padding: 0; }
 
-html {
+html{
+  scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-h) + 16px);
 }
 
-html, body {
+/* защита от горизонтального скролла: hidden как фолбэк, clip для современных */
+html, body{
   max-width: 100vw;
-  overflow-x: clip; /* Железобетонная защита от горизонтального скролла */
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
-body {
+body{
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
@@ -61,7 +57,7 @@ body {
 
 body.no-scroll{ overflow: hidden; }
 
-/* плёночное зерно — фактура «дорогой бумаги» */
+/* плёночное зерно */
 body::before{
   content: "";
   position: fixed; inset: 0;
@@ -89,8 +85,7 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
 ::-webkit-scrollbar-thumb{ background: var(--c-taupe); border-radius: 8px; }
 *{ scrollbar-width: thin; scrollbar-color: var(--c-taupe) var(--c-bg-soft); }
 
-/* Безопасное скрытие элемента доступности, чтобы он не растягивал страницу влево */
-.skip-link {
+.skip-link{
   position: absolute;
   width: 1px; height: 1px;
   padding: 0; margin: -1px;
@@ -99,19 +94,17 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
   white-space: nowrap;
   border: 0;
 }
-.skip-link:focus {
-  position: fixed;
-  top: 8px; left: 8px;
+.skip-link:focus{
+  position: fixed; top: 8px; left: 8px;
   width: auto; height: auto;
   margin: 0; clip: auto;
   z-index: 9999;
   padding: 10px 18px;
-  background: var(--c-deep);
-  color: var(--c-cream);
+  background: var(--c-deep); color: var(--c-cream);
   border-radius: var(--radius-s);
 }
 
-/* ---------- 3. Утилиты ---------- */
+/* 3. Утилиты */
 .section{ padding-block: clamp(76px, 10vw, 150px); }
 
 .section__head{
@@ -126,10 +119,7 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
   letter-spacing: .24em; text-transform: uppercase;
   color: var(--c-accent);
 }
-.section__label::before{
-  content: ""; width: 32px; height: 1px;
-  background: var(--c-accent);
-}
+.section__label::before{ content: ""; width: 32px; height: 1px; background: var(--c-accent); }
 
 .section__title{
   margin-top: 18px;
@@ -140,29 +130,22 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
 }
 .section__title em{ font-style: italic; color: var(--c-accent); }
 
-/* появление при скролле */
 .reveal{
   opacity: 0;
   transform: translateY(28px);
-  transition:
-    opacity .9s var(--ease),
-    transform .9s var(--ease);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
   transition-delay: var(--d, 0s);
 }
 .reveal.is-visible{ opacity: 1; transform: none; }
 
-/* заголовки проявляются из «дымки» */
 .reveal--blur{
   filter: blur(10px);
-  transition:
-    opacity 1s var(--ease),
-    transform 1s var(--ease),
-    filter 1.2s var(--ease);
+  transition: opacity 1s var(--ease), transform 1s var(--ease), filter 1.2s var(--ease);
   transition-delay: var(--d, 0s);
 }
 .reveal--blur.is-visible{ filter: blur(0); }
 
-/* ---------- 4. Кнопки ---------- */
+/* 4. Кнопки */
 .btn{
   position: relative;
   display: inline-flex; align-items: center; justify-content: center;
@@ -199,65 +182,60 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
   color: var(--c-cream);
   box-shadow: var(--shadow-soft);
 }
-.btn--primary:hover{
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-card);
-}
+.btn--primary:hover{ transform: translateY(-2px); box-shadow: var(--shadow-card); }
 
-.btn--outline{
-  border: 1px solid var(--c-line);
-  color: var(--c-ink);
-  background: transparent;
-}
-.btn--outline:hover{
-  background: var(--c-deep);
-  border-color: var(--c-deep);
-  color: var(--c-cream);
-}
+.btn--outline{ border: 1px solid var(--c-line); color: var(--c-ink); background: transparent; }
+.btn--outline:hover{ background: var(--c-deep); border-color: var(--c-deep); color: var(--c-cream); }
 
-.btn--light{
-  background: var(--c-cream);
-  color: var(--c-deep);
-  box-shadow: 0 24px 50px -20px rgba(0,0,0,.45);
-}
+.btn--light{ background: var(--c-cream); color: var(--c-deep); box-shadow: 0 24px 50px -20px rgba(0,0,0,.45); }
 .btn--light:hover{ transform: translateY(-2px); }
 
-/* ---------- 5. Header ---------- */
-.header {
+/* 5. Шапка: прижата к верху + шторка в цвет фона над ней */
+.header{
   position: fixed;
-  top: -300px; /* Уходим далеко за край, чтобы при оттяжке Safari фон оставался залитым */
-  left: 0; right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 1000;
-  height: calc(300px + var(--header-h) + env(safe-area-inset-top, 0px));
-  padding-top: calc(300px + env(safe-area-inset-top, 0px));
+  height: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+  padding-top: env(safe-area-inset-top, 0px);
   border-bottom: 1px solid transparent;
-  animation: header-in .8s var(--ease) both;
   transition:
     background-color .5s var(--ease),
     border-color .5s var(--ease),
     backdrop-filter .5s var(--ease);
 }
-@keyframes header-in { from { opacity: 0; } }
 
-.header.is-scrolled {
+/* заливает зону над шапкой при оттяжке Safari */
+.header::before{
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 100%;
+  height: 320px;
+  background: var(--c-bg);
+  pointer-events: none;
+}
+body.menu-open .header::before{ background: transparent; }
+
+@keyframes header-in{ from{ opacity: 0; } }
+
+.header__inner{
+  width: min(1360px, 100% - var(--edge) * 2);
+  height: 100%;
+  margin-inline: auto;
+  display: flex; align-items: center; gap: 32px;
+  animation: header-in .8s var(--ease) both;
+}
+
+.header.is-scrolled{
   background: rgba(244, 239, 232, .68);
   -webkit-backdrop-filter: blur(18px) saturate(1.25);
   backdrop-filter: blur(18px) saturate(1.25);
   border-bottom-color: var(--c-line-soft);
 }
-
-body.menu-open .header {
+body.menu-open .header{
   background: transparent;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   border-bottom-color: transparent;
-}
-
-.header__inner {
-  width: min(1360px, 100% - var(--edge) * 2);
-  height: 100%;
-  margin-inline: auto;
-  display: flex; align-items: center; gap: 32px;
 }
 
 .logo{ display: grid; gap: 2px; margin-right: auto; }
@@ -301,7 +279,6 @@ body.menu-open .logo{ color: var(--c-cream); }
 body.menu-open .logo__caption{ color: rgba(244,239,232,.6); }
 body.menu-open .nav{ visibility: hidden; }
 
-/* бургер */
 .burger{
   display: none;
   position: relative; z-index: 1100;
@@ -317,7 +294,7 @@ body.menu-open .nav{ visibility: hidden; }
 .burger.is-open span:nth-child(1){ transform: translateY(4.3px) rotate(45deg); }
 .burger.is-open span:nth-child(2){ transform: translateY(-4.3px) rotate(-45deg); }
 
-/* ---------- 6. Мобильное меню ---------- */
+/* 6. Мобильное меню */
 .mobile-menu{
   position: fixed; inset: 0; z-index: 950;
   display: flex; flex-direction: column; justify-content: center;
@@ -332,7 +309,6 @@ body.menu-open .nav{ visibility: hidden; }
   opacity: 1; visibility: visible;
   transition: opacity .55s var(--ease);
 }
-
 .mobile-menu__nav{ display: grid; gap: 4px; }
 .mobile-menu__nav a{
   display: flex; align-items: baseline; gap: 18px;
@@ -358,21 +334,17 @@ body.menu-open .nav{ visibility: hidden; }
   letter-spacing: .2em; color: var(--c-taupe);
 }
 .mobile-menu__cta{ color: var(--c-blush); }
-
 .mobile-menu__meta{
   margin-top: auto;
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 28px;
 }
-.mobile-menu__meta a{
-  font-family: var(--font-display);
-  font-size: 1.5rem; color: var(--c-cream);
-}
+.mobile-menu__meta a{ font-family: var(--font-display); font-size: 1.5rem; color: var(--c-cream); }
 .mobile-menu__meta span{
   font-size: .78rem; letter-spacing: .12em;
   text-transform: uppercase; color: var(--c-taupe);
 }
 
-/* ---------- 7. Hero ---------- */
+/* 7. Hero */
 .hero{
   position: relative;
   min-height: 100svh;
@@ -382,9 +354,7 @@ body.menu-open .nav{ visibility: hidden; }
     radial-gradient(90% 70% at 78% 18%, rgba(255,252,247,.9), transparent 60%),
     linear-gradient(180deg, #F6F1E9 0%, #EFE6DA 100%);
 }
-
 .hero__canvas{ position: absolute; inset: 0; width: 100%; height: 100%; }
-
 .hero__content{
   position: relative; z-index: 2;
   width: min(1240px, 100% - var(--edge) * 2);
@@ -392,7 +362,6 @@ body.menu-open .nav{ visibility: hidden; }
   padding-top: var(--header-h);
   will-change: transform, opacity;
 }
-
 .hero__eyebrow{
   display: inline-flex; align-items: center; gap: 14px;
   font-size: .74rem; font-weight: 600;
@@ -400,7 +369,6 @@ body.menu-open .nav{ visibility: hidden; }
   color: var(--c-accent);
 }
 .hero__eyebrow::before{ content: ""; width: 36px; height: 1px; background: var(--c-accent); }
-
 .hero__title{
   margin-top: 26px;
   font-family: var(--font-display);
@@ -409,7 +377,6 @@ body.menu-open .nav{ visibility: hidden; }
   letter-spacing: .005em;
 }
 .hero__title em{ font-style: italic; color: var(--c-accent); }
-
 .hero__sub{
   margin-top: 26px;
   max-width: 34em;
@@ -417,9 +384,7 @@ body.menu-open .nav{ visibility: hidden; }
   font-weight: 300; line-height: 1.75;
   color: var(--c-ink-soft);
 }
-
 .hero__cta{ margin-top: 44px; }
-
 .hero__side{
   position: absolute; right: calc(var(--edge) * .6); top: 50%;
   z-index: 2;
@@ -428,7 +393,6 @@ body.menu-open .nav{ visibility: hidden; }
   font-size: .68rem; letter-spacing: .4em; text-transform: uppercase;
   color: rgba(51,43,36,.42);
 }
-
 .hero__hint{
   position: absolute; left: var(--edge); bottom: 34px; z-index: 2;
   display: flex; align-items: center; gap: 14px;
@@ -453,17 +417,14 @@ body.menu-open .nav{ visibility: hidden; }
   100%{ top: 100%; }
 }
 
-/* ---------- 8. Marquee ---------- */
+/* 8. Marquee */
 .marquee{
   overflow: hidden;
   padding: 20px 0;
   border-block: 1px solid var(--c-line-soft);
   background: var(--c-surface);
 }
-.marquee__track{
-  display: flex; width: max-content;
-  animation: marquee 32s linear infinite;
-}
+.marquee__track{ display: flex; width: max-content; animation: marquee 32s linear infinite; }
 .marquee:hover .marquee__track{ animation-play-state: paused; }
 .marquee__group{
   display: flex; align-items: center; gap: 44px;
@@ -477,7 +438,7 @@ body.menu-open .nav{ visibility: hidden; }
 .marquee__spark{ width: 12px; height: 12px; flex: none; fill: var(--c-accent); }
 @keyframes marquee{ to{ transform: translateX(-50%); } }
 
-/* ---------- 9. Почему мы ---------- */
+/* 9. Почему мы */
 .why__grid{
   width: min(1240px, 100% - var(--edge) * 2);
   margin-inline: auto;
@@ -489,7 +450,6 @@ body.menu-open .nav{ visibility: hidden; }
     "c04  c04  c04  c04  c04  c04  c04  stat stat stat stat stat";
   gap: clamp(16px, 2vw, 26px);
 }
-
 .why__card{
   background: var(--c-surface);
   border: 1px solid var(--c-line-soft);
@@ -500,18 +460,12 @@ body.menu-open .nav{ visibility: hidden; }
     box-shadow var(--t-mid) var(--ease),
     border-color var(--t-mid) var(--ease);
 }
-.why__card:hover{
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-soft);
-  border-color: var(--c-line);
-}
-
+.why__card:hover{ transform: translateY(-5px); box-shadow: var(--shadow-soft); border-color: var(--c-line); }
 .why__card--lead{ grid-area: lead; }
 .why__card--c02 { grid-area: c02; }
 .why__card--c03 { grid-area: c03; }
 .why__card--c04 { grid-area: c04; }
 .why__stats     { grid-area: stat; }
-
 .why__num{
   display: block;
   font-family: var(--font-display);
@@ -523,18 +477,13 @@ body.menu-open .nav{ visibility: hidden; }
   transition: transform var(--t-mid) var(--ease);
 }
 .why__card:hover .why__num{ transform: translateX(6px); }
-
 .why__card h3{
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.2vw, 1.9rem);
   font-weight: 500; line-height: 1.2;
   margin-bottom: 14px;
 }
-.why__card p{
-  font-size: .95rem; font-weight: 300;
-  line-height: 1.7; color: var(--c-ink-soft);
-}
-
+.why__card p{ font-size: .95rem; font-weight: 300; line-height: 1.7; color: var(--c-ink-soft); }
 .why__tags{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
 .why__tags li{
   padding: 8px 18px;
@@ -545,15 +494,10 @@ body.menu-open .nav{ visibility: hidden; }
   color: var(--c-ink-soft);
   transition: background-color var(--t-fast), color var(--t-fast), border-color var(--t-fast);
 }
-.why__tags li:hover{
-  background: var(--c-deep); border-color: var(--c-deep);
-  color: var(--c-cream);
-}
-
+.why__tags li:hover{ background: var(--c-deep); border-color: var(--c-deep); color: var(--c-cream); }
 .why__card--lead h3{ font-size: clamp(1.9rem, 3vw, 2.6rem); }
 .why__card--lead p{ font-size: 1.02rem; max-width: 30em; }
 
-/* ── арт-блок с монограммой: живая композиция ── */
 .why__card--art{
   grid-area: art;
   position: relative;
@@ -569,7 +513,6 @@ body.menu-open .nav{ visibility: hidden; }
 }
 .why__card--art:hover{ transform: none; box-shadow: var(--shadow-soft); }
 
-/* появление блока — «раскрытие» изнутри */
 .reveal--art{
   clip-path: inset(14% 14% 14% 14% round var(--radius-l));
   transform: scale(.94);
@@ -585,7 +528,6 @@ body.menu-open .nav{ visibility: hidden; }
   transform: scale(1);
 }
 
-/* дрейфующие пятна света */
 .art__blob{
   position: absolute;
   width: 58%; aspect-ratio: 1;
@@ -594,20 +536,13 @@ body.menu-open .nav{ visibility: hidden; }
   opacity: .55;
   pointer-events: none;
 }
-.art__blob--1{
-  background: #F7ECDF; top: -14%; left: -16%;
-  animation: blob-float 13s ease-in-out infinite alternate;
-}
-.art__blob--2{
-  background: #C79F7F; bottom: -18%; right: -14%;
-  animation: blob-float 17s ease-in-out infinite alternate-reverse;
-}
+.art__blob--1{ background: #F7ECDF; top: -14%; left: -16%; animation: blob-float 13s ease-in-out infinite alternate; }
+.art__blob--2{ background: #C79F7F; bottom: -18%; right: -14%; animation: blob-float 17s ease-in-out infinite alternate-reverse; }
 @keyframes blob-float{
   from{ transform: translate(0, 0) scale(1); }
   to  { transform: translate(10%, 12%) scale(1.18); }
 }
 
-/* бегущий блик */
 .why__card--art::after{
   content: "";
   position: absolute; inset: 0;
@@ -621,12 +556,7 @@ body.menu-open .nav{ visibility: hidden; }
   55%,100%{ transform: translateX(130%); }
 }
 
-/* кольцо с монограммой */
-.art__ring{
-  position: relative;
-  width: 168px; height: 168px;
-  display: grid; place-items: center;
-}
+.art__ring{ position: relative; width: 168px; height: 168px; display: grid; place-items: center; }
 .art__ring::before{
   content: "";
   position: absolute; inset: 0;
@@ -689,7 +619,6 @@ body.menu-open .nav{ visibility: hidden; }
   color: var(--c-deep);
 }
 
-/* ── статистика со счётчиками ── */
 .why__stats{
   display: flex; flex-direction: column; justify-content: center;
   gap: clamp(20px, 3vw, 34px);
@@ -716,16 +645,13 @@ body.menu-open .nav{ visibility: hidden; }
   color: rgba(244,239,232,.6);
 }
 
-/* ---------- 10. Услуги и цены ---------- */
+/* 10. Услуги и цены */
 .services{ background: var(--c-bg-soft); }
-
 .services__head{
   width: min(1240px, 100% - var(--edge) * 2);
   margin-inline: auto;
   margin-bottom: clamp(36px, 5vw, 60px);
 }
-
-/* управление каруселью — под лентой */
 .services__footer{
   width: min(1240px, 100% - var(--edge) * 2);
   margin: 6px auto 0;
@@ -740,7 +666,6 @@ body.menu-open .nav{ visibility: hidden; }
   font-size: 1.2rem; color: var(--c-ink-soft);
   font-variant-numeric: tabular-nums;
 }
-
 .slider-btn{
   width: 54px; height: 54px;
   display: grid; place-items: center;
@@ -765,7 +690,6 @@ body.menu-open .nav{ visibility: hidden; }
   mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
 }
-
 .services__track{
   display: flex; gap: clamp(16px, 2vw, 24px);
   padding: 12px var(--edge) 30px;
@@ -777,7 +701,6 @@ body.menu-open .nav{ visibility: hidden; }
 .services__track::-webkit-scrollbar{ display: none; }
 .services__track:active{ cursor: grabbing; }
 
-/* компактные карточки: в ленте видно 4+ штуки */
 .service-card{
   flex: 0 0 clamp(250px, 23.5vw, 330px);
   scroll-snap-align: start;
@@ -787,13 +710,8 @@ body.menu-open .nav{ visibility: hidden; }
   overflow: hidden;
   transition: transform var(--t-mid) var(--ease), box-shadow var(--t-mid) var(--ease);
 }
-.service-card:hover{
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-card);
-}
+.service-card:hover{ transform: translateY(-8px); box-shadow: var(--shadow-card); }
 
-/* фон карточки: градиентная «фото-композиция».
-   Реальные фото подключаются через background-image в этих классах */
 .service-card__media{
   position: relative;
   display: block;
@@ -808,8 +726,6 @@ body.menu-open .nav{ visibility: hidden; }
   transition: transform 1.2s var(--ease);
 }
 .service-card:hover .service-card__media::before{ transform: scale(1.08); }
-
-/* блик по фото при hover */
 .service-card__media::after{
   content: "";
   position: absolute; inset: 0;
@@ -837,7 +753,6 @@ body.menu-open .nav{ visibility: hidden; }
   letter-spacing: .18em; text-transform: uppercase;
   color: var(--c-ink);
 }
-
 .service-card__num{
   position: absolute; left: 16px; bottom: 2px;
   font-family: var(--font-display);
@@ -847,10 +762,7 @@ body.menu-open .nav{ visibility: hidden; }
   color: rgba(43, 35, 29, .18);
   transition: color var(--t-mid) var(--ease), transform var(--t-mid) var(--ease);
 }
-.service-card:hover .service-card__num{
-  color: rgba(43, 35, 29, .34);
-  transform: translateY(-5px);
-}
+.service-card:hover .service-card__num{ color: rgba(43, 35, 29, .34); transform: translateY(-5px); }
 
 .service-card__body{ padding: 20px 22px 24px; }
 .service-card__body h3{
@@ -862,7 +774,6 @@ body.menu-open .nav{ visibility: hidden; }
   font-size: .85rem; font-weight: 300; line-height: 1.6;
   color: var(--c-ink-soft);
 }
-
 .service-card__row{
   margin-top: 16px;
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
@@ -882,13 +793,9 @@ body.menu-open .nav{ visibility: hidden; }
   transition: color var(--t-fast), border-color var(--t-fast), gap var(--t-fast) var(--ease);
 }
 .service-card__link .btn__icon{ width: 15px; height: 15px; }
-.service-card__link:hover{
-  color: var(--c-accent);
-  border-color: var(--c-accent);
-  gap: 13px;
-}
+.service-card__link:hover{ color: var(--c-accent); border-color: var(--c-accent); gap: 13px; }
 
-/* ---------- 11. Акции ---------- */
+/* 11. Акции */
 .offers{
   background:
     radial-gradient(70% 90% at 15% 10%, rgba(168,150,128,.4), transparent 55%),
@@ -913,13 +820,10 @@ body.menu-open .nav{ visibility: hidden; }
   font-weight: 500; line-height: 1.12;
 }
 .offers__title em{ font-style: italic; color: var(--c-blush); }
-.offers__sub{
-  margin-top: 18px;
-  font-weight: 300; color: rgba(244,239,232,.66);
-}
+.offers__sub{ margin-top: 18px; font-weight: 300; color: rgba(244,239,232,.66); }
 .offers .btn{ margin-top: 40px; }
 
-/* ---------- 12. Отзывы ---------- */
+/* 12. Отзывы */
 .reviews__grid{
   width: min(1240px, 100% - var(--edge) * 2);
   margin-inline: auto;
@@ -935,10 +839,7 @@ body.menu-open .nav{ visibility: hidden; }
   border-radius: var(--radius-l);
   transition: transform var(--t-mid) var(--ease), box-shadow var(--t-mid) var(--ease);
 }
-.review:hover{
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-soft);
-}
+.review:hover{ transform: translateY(-5px); box-shadow: var(--shadow-soft); }
 .review::before{
   content: "“";
   position: absolute; top: -14px; left: 30px;
@@ -961,7 +862,7 @@ body.menu-open .nav{ visibility: hidden; }
   color: var(--c-ink-soft);
 }
 
-/* ---------- 13. Footer ---------- */
+/* 13. Footer */
 .footer{
   background: var(--c-deep);
   color: rgba(244,239,232,.82);
@@ -975,7 +876,6 @@ body.menu-open .nav{ visibility: hidden; }
   gap: clamp(32px, 4vw, 60px);
   padding-bottom: clamp(50px, 6vw, 80px);
 }
-
 .logo--footer .logo__caption{ color: rgba(244,239,232,.5); }
 .footer__desc{
   margin-top: 20px;
@@ -998,7 +898,6 @@ body.menu-open .nav{ visibility: hidden; }
   transform: translateY(-3px);
 }
 .footer__socials svg{ width: 19px; height: 19px; fill: currentColor; }
-
 .footer__col{ display: grid; gap: 12px; align-content: start; }
 .footer__col h4{
   margin-bottom: 8px;
@@ -1012,7 +911,6 @@ body.menu-open .nav{ visibility: hidden; }
   transition: color var(--t-fast), padding-left var(--t-fast) var(--ease);
 }
 .footer__col a:hover{ color: var(--c-cream); padding-left: 6px; }
-
 .footer__bottom{
   border-top: 1px solid rgba(244,239,232,.12);
   padding: 26px 0;
@@ -1024,13 +922,12 @@ body.menu-open .nav{ visibility: hidden; }
 .footer__bottom a{ transition: color var(--t-fast); }
 .footer__bottom a:hover{ color: var(--c-cream); }
 
-/* ---------- 14. FAB ---------- */
+/* 14. FAB */
 .fab{
   position: fixed; right: 24px; bottom: 24px;
   z-index: 1500;
   display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
 }
-
 .fab__main{
   position: relative;
   width: 60px; height: 60px;
@@ -1042,8 +939,6 @@ body.menu-open .nav{ visibility: hidden; }
   transition: transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
 }
 .fab__main:hover{ transform: translateY(-3px) scale(1.04); }
-
-/* мягкая пульсация-приглашение */
 .fab__main::after{
   content: "";
   position: absolute; inset: 0;
@@ -1056,7 +951,6 @@ body.menu-open .nav{ visibility: hidden; }
   70%{ box-shadow: 0 0 0 16px rgba(74,58,44,0); }
   100%{ box-shadow: 0 0 0 0 rgba(74,58,44,0); }
 }
-
 .fab__icon{
   position: absolute;
   width: 24px; height: 24px;
@@ -1066,7 +960,6 @@ body.menu-open .nav{ visibility: hidden; }
 .fab__icon--close{ opacity: 0; transform: rotate(-90deg) scale(.6); }
 .fab.is-open .fab__icon--chat{ opacity: 0; transform: rotate(90deg) scale(.6); }
 .fab.is-open .fab__icon--close{ opacity: 1; transform: none; }
-
 .fab__actions{
   display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
   pointer-events: none;
@@ -1086,10 +979,7 @@ body.menu-open .nav{ visibility: hidden; }
     transform .45s var(--ease),
     background-color var(--t-fast);
 }
-.fab__option-label{
-  font-size: .84rem; font-weight: 600; color: var(--c-ink);
-  white-space: nowrap;
-}
+.fab__option-label{ font-size: .84rem; font-weight: 600; color: var(--c-ink); white-space: nowrap; }
 .fab__option-icon{
   width: 42px; height: 42px;
   display: grid; place-items: center;
@@ -1099,7 +989,6 @@ body.menu-open .nav{ visibility: hidden; }
 }
 .fab__option-icon svg{ width: 18px; height: 18px; fill: currentColor; }
 .fab__option:hover{ background: var(--c-powder); }
-
 .fab.is-open .fab__actions,
 .fab:hover .fab__actions{ pointer-events: auto; }
 .fab.is-open .fab__option,
@@ -1107,18 +996,16 @@ body.menu-open .nav{ visibility: hidden; }
 .fab.is-open .fab__option:nth-child(2),
 .fab:hover .fab__option:nth-child(2){ transition-delay: .06s; }
 
-/* ---------- 15. Адаптивность ---------- */
+/* 15. Адаптивность */
 @media (max-width: 1180px){
   .logo__caption{ display: none; }
   .nav{ gap: 20px; }
   .hero__side{ display: none; }
 }
-
 @media (max-width: 1024px){
   .nav, .btn--header{ display: none; }
   .burger{ display: flex; }
   .header__inner{ justify-content: space-between; }
-
   .why__grid{
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
@@ -1129,64 +1016,35 @@ body.menu-open .nav{ visibility: hidden; }
       "stat stat";
   }
   .why__card--art{ min-height: 360px; }
-
   .footer__grid{ grid-template-columns: 1fr 1fr; }
 }
-
 @media (max-width: 820px){
   .br-desk{ display: none; }
   .reviews__grid{ grid-template-columns: 1fr; }
 }
-
 @media (max-width: 640px){
   :root{ --header-h: 66px; }
-
   .why__grid{
     grid-template-columns: 1fr;
     grid-template-areas:
       "lead" "art" "c02" "c03" "c04" "stat";
   }
   .why__card--art{ min-height: 340px; }
-
   .service-card{ flex-basis: 78vw; }
-
   .footer__grid{ grid-template-columns: 1fr; gap: 40px; }
   .footer__bottom{ flex-direction: column; }
-
   .fab{ right: 16px; bottom: 16px; }
   .fab__option-label{ display: none; }
   .fab__option{ padding: 6px; }
-
   .hero__hint{ display: none; }
 }
 
-/* ---------- 16. Reduced motion ---------- */
-@media (prefers-reduced-motion: reduce){
-  html{ scroll-behavior: auto; }
-  *, *::before, *::after{
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
-  }
-  .reveal, .reveal--art{ opacity: 1; transform: none; filter: none; clip-path: none; }
-  .marquee__track{ animation: none; }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   СТРАНИЦА «ЗАПИСЬ ОНЛАЙН» (booking.html)
-   ═══════════════════════════════════════════════════════════ */
-:root{
-  --c-error: #A4553F; /* терракота для ошибок — в тон палитре */
-}
-
-/* ---------- шапка страницы ---------- */
+/* 16. Страница «Запись онлайн» */
 .hero--page{ min-height: 62svh; }
 .hero--page .hero__content{ padding-bottom: clamp(30px, 5vw, 60px); }
 .hero--page .hero__title{ font-size: clamp(2.6rem, 6.4vw, 4.8rem); }
 
-/* ---------- каркас секции ---------- */
 .booking{ padding-block: clamp(64px, 9vw, 120px); }
-
 .booking__wrap{
   width: min(1240px, 100% - var(--edge) * 2);
   margin-inline: auto;
@@ -1195,10 +1053,8 @@ body.menu-open .nav{ visibility: hidden; }
   gap: clamp(24px, 3vw, 44px);
   align-items: start;
 }
-
 .booking__left{ display: grid; }
 
-/* ---------- карточка формы ---------- */
 .booking__form{
   background: var(--c-surface);
   border: 1px solid var(--c-line-soft);
@@ -1207,21 +1063,14 @@ body.menu-open .nav{ visibility: hidden; }
   box-shadow: var(--shadow-soft);
 }
 .booking__form.is-hidden{ display: none; }
-
 .booking__form-title{
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 3vw, 2.4rem);
   font-weight: 500;
   margin-bottom: 28px;
 }
+.form__row{ display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 
-.form__row{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-
-/* ---------- поля ---------- */
 .field{ margin-bottom: 22px; }
 .field > label,
 .field legend{
@@ -1232,7 +1081,7 @@ body.menu-open .nav{ visibility: hidden; }
   letter-spacing: .16em; text-transform: uppercase;
   color: var(--c-ink-soft);
 }
-.fieldset-reset, .field--checks{ border: 0; }
+.field--checks{ border: 0; }
 
 .field input,
 .field select{
@@ -1244,9 +1093,7 @@ body.menu-open .nav{ visibility: hidden; }
   background: #FFFDF9;
   font: inherit;
   color: var(--c-ink);
-  transition:
-    border-color var(--t-fast) var(--ease),
-    box-shadow var(--t-fast) var(--ease);
+  transition: border-color var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
 }
 .field input::placeholder{ color: var(--c-taupe); }
 .field input:focus,
@@ -1256,7 +1103,6 @@ body.menu-open .nav{ visibility: hidden; }
   box-shadow: 0 0 0 4px rgba(138, 111, 82, .14);
 }
 .field input[type="date"]{ color-scheme: light; }
-
 .field select{
   appearance: none;
   -webkit-appearance: none;
@@ -1265,7 +1111,6 @@ body.menu-open .nav{ visibility: hidden; }
   background-repeat: no-repeat;
   background-position: right 18px center;
 }
-
 .field__hint{
   display: block;
   margin-top: 8px;
@@ -1273,7 +1118,6 @@ body.menu-open .nav{ visibility: hidden; }
   color: var(--c-ink-soft);
   opacity: .75;
 }
-
 .field__error{
   display: none;
   margin-top: 8px;
@@ -1281,25 +1125,14 @@ body.menu-open .nav{ visibility: hidden; }
   font-weight: 500;
   color: var(--c-error);
 }
-.field.is-error .field__error{
-  display: block;
-  animation: err-in .35s var(--ease);
-}
+.field.is-error .field__error{ display: block; animation: err-in .35s var(--ease); }
 .field.is-error input{
   border-color: var(--c-error);
   box-shadow: 0 0 0 4px rgba(164, 85, 63, .12);
 }
-@keyframes err-in{
-  from{ opacity: 0; transform: translateY(-5px); }
-}
+@keyframes err-in{ from{ opacity: 0; transform: translateY(-5px); } }
 
-/* ---------- чекбоксы-направления ---------- */
-.checks{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
+.checks{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .check{
   position: relative;
   display: flex; align-items: center; gap: 13px;
@@ -1313,16 +1146,8 @@ body.menu-open .nav{ visibility: hidden; }
     background-color var(--t-fast) var(--ease),
     transform var(--t-fast) var(--ease);
 }
-.check:hover{
-  border-color: var(--c-accent);
-  transform: translateY(-2px);
-}
-.check input{
-  position: absolute;
-  opacity: 0;
-  width: 1px; height: 1px;
-}
-
+.check:hover{ border-color: var(--c-accent); transform: translateY(-2px); }
+.check input{ position: absolute; opacity: 0; width: 1px; height: 1px; }
 .check__box{
   flex: none;
   width: 22px; height: 22px;
@@ -1330,9 +1155,7 @@ body.menu-open .nav{ visibility: hidden; }
   border: 1px solid var(--c-taupe);
   border-radius: 7px;
   color: var(--c-cream);
-  transition:
-    background-color var(--t-fast) var(--ease),
-    border-color var(--t-fast) var(--ease);
+  transition: background-color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
 }
 .check__box svg{ width: 12px; height: 12px; }
 .check__box path{
@@ -1340,37 +1163,18 @@ body.menu-open .nav{ visibility: hidden; }
   stroke-dashoffset: 20;
   transition: stroke-dashoffset .35s var(--ease) .05s;
 }
-
-.check input:checked ~ .check__box{
-  background: var(--c-accent-2);
-  border-color: var(--c-accent-2);
-}
+.check input:checked ~ .check__box{ background: var(--c-accent-2); border-color: var(--c-accent-2); }
 .check input:checked ~ .check__box path{ stroke-dashoffset: 0; }
-.check:has(input:checked){
-  border-color: var(--c-accent-2);
-  background: #F6EDE2;
-}
-.check input:focus-visible ~ .check__box{
-  outline: 2px solid var(--c-accent);
-  outline-offset: 2px;
-}
-
+.check:has(input:checked){ border-color: var(--c-accent-2); background: #F6EDE2; }
+.check input:focus-visible ~ .check__box{ outline: 2px solid var(--c-accent); outline-offset: 2px; }
 .check__text{ font-size: .92rem; font-weight: 500; }
 
-/* согласие — компактное */
-.check--agree{
-  border: 0;
-  padding: 4px 0;
-  min-height: 44px;
-  background: transparent;
-}
+.check--agree{ border: 0; padding: 4px 0; min-height: 44px; background: transparent; }
 .check--agree:hover{ transform: none; }
 .check--agree .check__text{ font-size: .84rem; font-weight: 400; color: var(--c-ink-soft); }
 .check--agree:has(input:checked){ background: transparent; }
 
-/* ---------- кнопка отправки ---------- */
 .btn--submit{ width: 100%; margin-top: 6px; }
-
 .btn__spinner{
   display: none;
   width: 18px; height: 18px;
@@ -1382,78 +1186,50 @@ body.menu-open .nav{ visibility: hidden; }
 .btn.is-loading{ pointer-events: none; opacity: .85; }
 .btn.is-loading .btn__spinner{ display: inline-block; }
 .btn.is-loading .btn__icon{ display: none; }
+.form__note{ margin-top: 16px; font-size: .76rem; color: var(--c-ink-soft); opacity: .7; }
 
-.form__note{
-  margin-top: 16px;
-  font-size: .76rem;
-  color: var(--c-ink-soft);
-  opacity: .7;
+/* окно статуса заявки */
+.form__status{
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  animation: status-in .5s var(--ease);
 }
+.form__status[hidden]{ display: none; }
+@keyframes status-in{ from{ opacity: 0; transform: translateY(-10px); } }
 
-/* ---------- экран успеха ---------- */
-.booking__success{ display: none; }
-.booking__success.is-active{
-  display: grid;
-  justify-items: center;
-  text-align: center;
-  gap: 6px;
-  background: var(--c-surface);
-  border: 1px solid var(--c-line-soft);
-  border-radius: var(--radius-l);
-  padding: clamp(44px, 6vw, 76px) clamp(24px, 4vw, 56px);
-  box-shadow: var(--shadow-soft);
-  animation: fade-up .7s var(--ease);
-}
-@keyframes fade-up{
-  from{ opacity: 0; transform: translateY(24px); }
-}
+.form__status--ok{ background: #EEF0E3; border-color: rgba(111, 125, 92, .35); }
+.form__status--err{ background: #F7E9E3; border-color: rgba(164, 85, 63, .35); }
 
-.success__icon{
-  width: 88px; height: 88px;
-  color: var(--c-accent);
-  margin-bottom: 16px;
-}
-.booking__success.is-active .success__icon circle{
-  stroke-dasharray: 183;
-  stroke-dashoffset: 183;
-  animation: draw-stroke .9s var(--ease) forwards .15s;
-}
-.booking__success.is-active .success__icon path{
-  stroke-dasharray: 40;
-  stroke-dashoffset: 40;
-  animation: draw-stroke .5s var(--ease) forwards .85s;
-}
-@keyframes draw-stroke{ to{ stroke-dashoffset: 0; } }
+.form__status-icon{ flex: none; width: 26px; height: 26px; display: grid; place-items: center; }
+.form__status-icon svg{ width: 23px; height: 23px; }
+.form__status-icon--ok{ color: #55643F; }
+.form__status-icon--err{ color: var(--c-error); }
+.form__status--ok  .form__status-icon--err{ display: none; }
+.form__status--err .form__status-icon--ok{ display: none; }
 
-.booking__success h3{
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
-  font-weight: 500;
-}
-.booking__success p{
-  max-width: 26em;
-  color: var(--c-ink-soft);
-  font-weight: 300;
-}
-.btn--ghost{
-  margin-top: 20px;
-  border: 1px solid var(--c-line);
-  background: transparent;
-  color: var(--c-ink);
-}
-.btn--ghost:hover{
-  background: var(--c-deep);
-  border-color: var(--c-deep);
-  color: var(--c-cream);
+.form__status-title{ display: block; font-size: .95rem; font-weight: 700; margin-bottom: 2px; }
+.form__status--ok  .form__status-title{ color: #45522F; }
+.form__status--err .form__status-title{ color: #8C4432; }
+.form__status-text{ font-size: .85rem; line-height: 1.55; }
+.form__status--ok  .form__status-text{ color: #5A6647; }
+.form__status--err .form__status-text{ color: #8C5A4B; }
+
+/* honeypot */
+.form__hp{
+  position: absolute;
+  left: -9999px;
+  width: 1px; height: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* ---------- правая колонка ---------- */
-.booking__side{
-  display: grid; gap: 22px;
-  position: sticky;
-  top: calc(var(--header-h) + 24px);
-}
-
+/* правая колонка */
+.booking__side{ display: grid; gap: 22px; position: sticky; top: calc(var(--header-h) + 24px); }
 .side-card{
   background: var(--c-surface);
   border: 1px solid var(--c-line-soft);
@@ -1481,7 +1257,6 @@ body.menu-open .nav{ visibility: hidden; }
 .side-row__icon svg{ width: 18px; height: 18px; fill: currentColor; }
 .side-row b{ display: block; font-size: .95rem; font-weight: 600; line-height: 1.3; }
 .side-row span{ font-size: .8rem; color: var(--c-ink-soft); }
-
 .side-card--art{
   position: relative;
   overflow: hidden;
@@ -1510,83 +1285,18 @@ body.menu-open .nav{ visibility: hidden; }
   color: rgba(43, 35, 29, .6);
 }
 
-/* ---------- адаптив страницы записи ---------- */
 @media (max-width: 1024px){
   .booking__wrap{ grid-template-columns: 1fr; }
   .booking__side{ position: static; }
 }
-
 @media (max-width: 640px){
   .form__row{ grid-template-columns: 1fr; gap: 0; }
   .checks{ grid-template-columns: 1fr; }
   .booking__form{ padding: 24px 20px 30px; }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   ОКНО СТАТУСА ЗАЯВКИ (успех / ошибка под кнопкой)
-   ═══════════════════════════════════════════════════════════ */
-.form__status{
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  margin-top: 18px;
-  padding: 16px 18px;
-  border-radius: 16px;
-  border: 1px solid transparent;
-  animation: status-in .5s var(--ease);
-}
-.form__status[hidden]{ display: none; }
-@keyframes status-in{
-  from{ opacity: 0; transform: translateY(-10px); }
-}
-
-/* успех — оливковый, в тон палитре */
-.form__status--ok{
-  background: #EEF0E3;
-  border-color: rgba(111, 125, 92, .35);
-}
-/* ошибка — терракота */
-.form__status--err{
-  background: #F7E9E3;
-  border-color: rgba(164, 85, 63, .35);
-}
-
-.form__status-icon{
-  flex: none;
-  width: 26px; height: 26px;
-  display: grid; place-items: center;
-}
-.form__status-icon svg{ width: 23px; height: 23px; }
-.form__status-icon--ok{ color: #55643F; }
-.form__status-icon--err{ color: var(--c-error); }
-.form__status--ok  .form__status-icon--err{ display: none; }
-.form__status--err .form__status-icon--ok{ display: none; }
-
-.form__status-title{
-  display: block;
-  font-size: .95rem; font-weight: 700;
-  margin-bottom: 2px;
-}
-.form__status--ok  .form__status-title{ color: #45522F; }
-.form__status--err .form__status-title{ color: #8C4432; }
-
-.form__status-text{
-  font-size: .85rem; line-height: 1.55;
-}
-.form__status--ok  .form__status-text{ color: #5A6647; }
-.form__status--err .form__status-text{ color: #8C5A4B; }
-
-/* honeypot: визуально скрыт, для скринридеров недоступен */
-.form__hp{
-  position: absolute;
-  left: -9999px;
-  width: 1px; height: 1px;
-  opacity: 0;
-  pointer-events: none;
-}
-/* ---------- стрелка «на главную» (моб., страница записи) ---------- */
+/* 17. Стрелка «на главную» (моб., страница записи) */
 .back-home{ display: none; }
-
 @media (max-width: 1024px){
   .back-home{
     display: grid;
@@ -1594,79 +1304,43 @@ body.menu-open .nav{ visibility: hidden; }
     position: absolute;
     z-index: 1100;
     top: 50%;
-    right: calc(var(--edge) + 54px); /* бургер 48px + зазор 6px */
+    right: calc(var(--edge) + 54px);
     transform: translateY(-50%);
     width: 44px; height: 44px;
     color: var(--c-ink);
-    transition:
-      color var(--t-fast) var(--ease),
-      transform var(--t-fast) var(--ease);
+    transition: color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
   }
   .back-home svg{
     width: 22px; height: 22px;
-    transform: rotate(180deg); /* смотрит влево */
+    transform: rotate(180deg);
     transition: transform var(--t-fast) var(--ease);
   }
   .back-home:hover svg{ transform: rotate(180deg) translateX(3px); }
   .back-home:active{ transform: translateY(-50%) scale(.9); }
-
-  /* поверх открытого тёмного меню */
   body.menu-open .back-home{ color: var(--c-cream); }
 }
 
-/* читаема поверх открытого тёмного меню */
-body.menu-open .back-home{
-  color: var(--c-cream);
-  border-color: rgba(244, 239, 232, .35);
-}
-body.menu-open .back-home:hover{
-  background: var(--c-cream);
-  border-color: var(--c-cream);
-  color: var(--c-deep);
-}
-/* если браузер поддерживает dvh (dynamic viewport height) */
-@supports (height: 100dvh){
-  .hero{ min-height: 100dvh; }
-}
-
-/* ---------- 2. FAB на мобильных: только по тапу, без hover ---------- */
+/* 18. FAB на тач-экранах: раскрытие строго по тапу */
 @media (hover: none) and (pointer: coarse){
-  /* отключаем hover-триггер раскрытия */
   .fab:hover .fab__actions{ pointer-events: none; }
   .fab:hover .fab__option{ opacity: 0; transform: translateY(14px) scale(.92); }
-
-  /* работает только .is-open (переключается JS по клику) */
   .fab.is-open .fab__actions{ pointer-events: auto; }
   .fab.is-open .fab__option{ opacity: 1; transform: none; }
 }
 
-/* закрытие FAB при тапе вне его области (на мобильных) */
-@media (max-width: 1024px){
-  .fab.is-open::before{
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background: transparent;
-  }
-}
-/* ===== финальный фикс: шапка у верха + залитая зона над ней ===== */
-.header{
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  height: calc(var(--header-h) + env(safe-area-inset-top, 0px)) !important;
-  padding-top: env(safe-area-inset-top, 0px) !important;
+/* 19. dvh для современных браузеров */
+@supports (height: 100dvh){
+  .hero{ min-height: 100dvh; }
 }
 
-/* «шторка» цвета фона, закрывающая всё над шапкой */
-.header::before{
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 100%;
-  height: 320px;
-  background: var(--c-bg);
+/* 20. Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *, *::before, *::after{
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  .reveal, .reveal--art{ opacity: 1; transform: none; filter: none; clip-path: none; }
+  .marquee__track{ animation: none; }
 }

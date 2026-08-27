@@ -42,7 +42,6 @@
 *, *::before, *::after{ box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
-  background-color: #F6F1E9; /* Помогает нативному Safari закрасить верхний отскок */
   scroll-padding-top: calc(var(--header-h) + 16px);
 }
 
@@ -226,10 +225,11 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
 /* ---------- 5. Header ---------- */
 .header {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: -300px; /* Уходим далеко за край, чтобы при оттяжке Safari фон оставался залитым */
+  left: 0; right: 0;
   z-index: 1000;
-  height: calc(var(--header-h) + env(safe-area-inset-top, 0px));
-  padding-top: env(safe-area-inset-top, 0px);
+  height: calc(300px + var(--header-h) + env(safe-area-inset-top, 0px));
+  padding-top: calc(300px + env(safe-area-inset-top, 0px));
   border-bottom: 1px solid transparent;
   animation: header-in .8s var(--ease) both;
   transition:
@@ -238,19 +238,6 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
     backdrop-filter .5s var(--ease);
 }
 @keyframes header-in { from { opacity: 0; } }
-
-/* Магическая задвижка: огромный блок цвета фона, который уходит за верхний край экрана. 
-   Скрывает все дыры при pull-to-refresh на iOS */
-.header::before {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 0;
-  right: 0;
-  height: 100vh;
-  background: #F6F1E9; /* Цвет самого верха баннера hero */
-  pointer-events: none;
-}
 
 .header.is-scrolled {
   background: rgba(244, 239, 232, .68);

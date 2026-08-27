@@ -191,7 +191,7 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
 .btn--light{ background: var(--c-cream); color: var(--c-deep); box-shadow: 0 24px 50px -20px rgba(0,0,0,.45); }
 .btn--light:hover{ transform: translateY(-2px); }
 
-/* 5. Шапка: прижата к верху + шторка в цвет фона над ней */
+/* 5. Шапка: фиксирована у самого верха + отдельная заливка safe-area */
 .header{
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -205,16 +205,25 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
     border-color .5s var(--ease);
 }
 
-/* заливает зону над шапкой при оттяжке Safari */
-.header::before{
+/*
+   iPhone / Dynamic Island / верхняя safe-area.
+   Это отдельный слой, поэтому safe-area не увеличивает высоту header
+   и не сдвигает логотип и бургер вниз.
+*/
+body::after{
   content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: 100%;
-  height: 320px;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: env(safe-area-inset-top, 0px);
   background: var(--c-bg);
+  z-index: 1001;
   pointer-events: none;
 }
-body.menu-open .header::before{ background: transparent; }
+
+/* При открытом мобильном меню верхняя safe-area должна быть тёмной. */
+body.menu-open::after{
+  background: var(--c-deep);
+}
 
 @keyframes header-in{ from{ opacity: 0; } }
 
@@ -297,7 +306,7 @@ body.menu-open .nav{ visibility: hidden; }
 .mobile-menu{
   position: fixed; inset: 0; z-index: 950;
   display: flex; flex-direction: column; justify-content: center;
-  padding: calc(var(--header-h) + 24px) var(--edge) 48px;
+  padding: calc(var(--header-h) + env(safe-area-inset-top, 0px) + 24px) var(--edge) 48px;
   background:
     radial-gradient(120% 90% at 85% 10%, rgba(168,150,128,.35), transparent 55%),
     var(--c-deep);
@@ -1343,21 +1352,3 @@ body.menu-open .nav{ visibility: hidden; }
   .reveal, .reveal--art{ opacity: 1; transform: none; filter: none; clip-path: none; }
   .marquee__track{ animation: none; }
 }
-/* ===== ФИНАЛЬНЫЙ ФИКС ШАПКИ ===== */
-.header{
-  top: 0 !important;
-  padding-top: env(safe-area-inset-top, 0px) !important;
-  height: calc(var(--header-h) + env(safe-area-inset-top, 0px)) !important;
-  background: var(--c-bg);
-}
-/* сплошная заливка над шапкой — на случай оттяжки Safari */
-.header::before{
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: 100%;
-  height: 320px;
-  background: var(--c-bg);
-  pointer-events: none;
-}
-/* при открытом меню шапка остаётся прозрачной, как задумано */
-body.menu-open .header{ background: transparent; }

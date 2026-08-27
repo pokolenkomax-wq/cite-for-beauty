@@ -197,11 +197,11 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
   z-index: 1000;
   height: calc(var(--header-h) + env(safe-area-inset-top, 0px));
   padding-top: env(safe-area-inset-top, 0px);
+  background: var(--c-bg);
   border-bottom: 1px solid transparent;
   transition:
     background-color .5s var(--ease),
-    border-color .5s var(--ease),
-    backdrop-filter .5s var(--ease);
+    border-color .5s var(--ease);
 }
 
 /* заливает зону над шапкой при оттяжке Safari */
@@ -226,9 +226,7 @@ body.menu-open .header::before{ background: transparent; }
 }
 
 .header.is-scrolled{
-  background: rgba(244, 239, 232, .68);
-  -webkit-backdrop-filter: blur(18px) saturate(1.25);
-  backdrop-filter: blur(18px) saturate(1.25);
+  background: var(--c-bg);
   border-bottom-color: var(--c-line-soft);
 }
 body.menu-open .header{

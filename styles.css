@@ -1604,15 +1604,23 @@ body.menu-open .back-home:hover{
   border-color: var(--c-cream);
   color: var(--c-deep);
 }
-/* ═══════════════════════════════════════════════════════════
-   МОБИЛЬНЫЕ ФИКСЫ: header в самый верх + FAB строго по тапу
-   ═══════════════════════════════════════════════════════════ */
-
-  /* если браузер поддерживает dvh (dynamic viewport height) */
-  @supports (height: 100dvh){
-    .hero{ min-height: 100dvh; }
-  }
+/* если браузер поддерживает dvh (dynamic viewport height) */
+@supports (height: 100dvh){
+  .hero{ min-height: 100dvh; }
 }
+
+/* фикс "отлипания" фиксированного хедера от верха экрана в iOS Safari
+   при резиновом скролле (rubber-band bounce) — переводим хедер
+   в отдельный GPU-слой и убираем bounce-эффект */
+.header{
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
+}
+html, body{
+  overscroll-behavior-y: none;
+}
+
 
 /* ---------- 2. FAB на мобильных: только по тапу, без hover ---------- */
 @media (hover: none) and (pointer: coarse){

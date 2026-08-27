@@ -191,10 +191,12 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
 .btn--light{ background: var(--c-cream); color: var(--c-deep); box-shadow: 0 24px 50px -20px rgba(0,0,0,.45); }
 .btn--light:hover{ transform: translateY(-2px); }
 
-/* 5. Шапка: всегда начинается от верхнего края viewport */
+/* 5. Шапка */
 .header{
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
   height: var(--header-h);
   padding-top: 0;
@@ -203,24 +205,6 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
   transition:
     background-color .5s var(--ease),
     border-color .5s var(--ease);
-}
-
-/*
-   iPhone Safari: верхний браузерный интерфейс может быть
-   полупрозрачным и показывать страницу под собой.
-   Этот слой находится под шапкой, но поверх hero, поэтому
-   область над 66px шапки тоже всегда заполнена цветом фона.
-*/
-.mobile-top-fill{
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 100px;
-  z-index: 999;
-  background: var(--c-bg);
-  pointer-events: none;
-}
-body.menu-open .mobile-top-fill{
-  background: var(--c-deep);
 }
 
 @keyframes header-in{ from{ opacity: 0; } }
@@ -1004,7 +988,6 @@ body.menu-open .nav{ visibility: hidden; }
 
 
 @media (min-width: 1025px){
-  .mobile-top-fill{ display: none; }
 }
 
 /* 15. Адаптивность */
@@ -1354,4 +1337,31 @@ body.menu-open .nav{ visibility: hidden; }
   }
   .reveal, .reveal--art{ opacity: 1; transform: none; filter: none; clip-path: none; }
   .marquee__track{ animation: none; }
+}
+
+
+/* =========================================================
+   iOS / Safari: тест верхней заливки над fixed-header
+   ========================================================= */
+@supports (-webkit-touch-callout: none) {
+  .header::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: 120px;
+    background: var(--c-bg);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .header__inner{
+    position: relative;
+    z-index: 1;
+  }
+
+  body.menu-open .header::before{
+    background: var(--c-deep);
+  }
 }

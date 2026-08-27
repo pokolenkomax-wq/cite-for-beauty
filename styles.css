@@ -1608,13 +1608,6 @@ body.menu-open .back-home:hover{
 @supports (height: 100dvh){
   .hero{ min-height: 100dvh; }
 }
-
-
-html, body{
-  overscroll-behavior-y: none;
-}
-
-
 /* ---------- 2. FAB на мобильных: только по тапу, без hover ---------- */
 @media (hover: none) and (pointer: coarse){
   /* отключаем hover-триггер раскрытия */

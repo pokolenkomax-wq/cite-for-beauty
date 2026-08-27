@@ -207,28 +207,39 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
 .btn--light:hover{ transform: translateY(-2px); }
 
 /* ---------- 5. Header ---------- */
-.header{
+.header {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
   height: calc(var(--header-h) + env(safe-area-inset-top, 0px));
   padding-top: env(safe-area-inset-top, 0px);
-  border-bottom: 1px solid transparent;
   animation: header-in .8s var(--ease) both;
+  /* Обрати внимание: транзишены, фон и рамку отсюда мы убрали */
+}
+
+/* Выносим "стекло" в отдельный слой, чтобы обойти баг iOS Safari */
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: transparent;
+  border-bottom: 1px solid transparent;
   transition:
     background-color .5s var(--ease),
     border-color .5s var(--ease),
     backdrop-filter .5s var(--ease);
 }
-@keyframes header-in{ from{ opacity: 0; } }
 
-.header.is-scrolled{
+.header.is-scrolled::before {
   background: rgba(244, 239, 232, .68);
   -webkit-backdrop-filter: blur(18px) saturate(1.25);
   backdrop-filter: blur(18px) saturate(1.25);
   border-bottom-color: var(--c-line-soft);
 }
-body.menu-open .header{
+
+body.menu-open .header::before {
   background: transparent;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
